@@ -1,0 +1,51 @@
+Pizza Factory - Pizza(s) appears and moves right to left across bottom of screen and must be completed before it reaches left hand edge
+Pizza needs 3 toppings to be complete, but more toppings may increase a score.
+
+the game would end when a Product reaches the edge of the screen which hasn’t been completed.  
+
+Game levels (diff ingredients for leves)
+Player lives (get x pizzas wrong = game over)
+Scoring (keep track of number of pizzas done this session for leaderboard)
+Multiple animated sequences (must differ in sequencing) – e.g. spinning, flashing, explosion etc.
+
+
+
+mark guide:
+
+40%:
+[-] Development of your solution is fully explained via a written implementation report (<500 words) which must include screen shots of section of your code at different stages of development to show your complete understanding of your solution.
+[-] Product (to be assembled) moves across the screen (right to left)
+[-] Minimum 2 classes (Component, Product)
+[-] At least one Component object that can be clicked on or dragged (by the mouse) to the Product
+[-] Simple working game (comment out any code that causes errors) in Processing.
+[-] Something clearly happens when the Component collides with the Product (e.g. Component removed from game, Product is updated) 
+
+40-50%:
+[-] At least 3 Component objects on screen (can be of the same class type)
+[-] Working Boolean Collision function method(s) : for the Product with the Component
+[-] Game ends when an incomplete Product (<3 components added) gets to edge of screen
+[-] Component objects use PImage
+
+50-60%:
+[-] PImage for Components and Product
+[-] Splash or game over screen (draw does different things at different times)
+[-] An ArrayList (or array) of Component objects
+[-] New Components and Products appear as game progresses
+[-] Product and Component objects removed from memory at the appropriate time (set to null, or removed from array/arrayList)
+[-] A 2nd type (class) of Component object, where Product requires different types of components to be completed. 
+
+60-70%:
+[-] Class-inheritance for different Component types (perhaps other classes)
+[-] Moving Product changes appearance as Components are added (can be different images for different stages of assembly or draw the Components on top of the product)
+[-] File handling – high score(s) saved and read from file
+
+70-80%:
+[-] Animation sequences for when a Component is added to the Product or when a Component is picked up
+[-] Exhibits some polymorphism with the array/arrayList of Components (arrayList stores classes of different types which all inherit from a super class)
+[-] Another class of objects that must be avoided by the player (collision between mouse position and object involves loss of life or game end). An example could be a puddle of water to avoid with the player mouse, or perhaps a moving rat.
+
+80%+:
+[-] Polymorphism for most (or all) game entities
+[-] Use of an Interface or abstract class
+[-] Complex product building, e.g. Rotation of Components necessary (arrow keys)
+[-] Refactored, maintainable code
