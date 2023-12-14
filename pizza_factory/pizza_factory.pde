@@ -15,7 +15,7 @@ void setup()
 // Called directly after setup() and continuously executes the lines of code contained inside its block until the program is stopped
 void draw()
 {
-  background(155);
+  background(pizzaFactory.backgroundColour);
 
   // Call game render loop
   pizzaFactory.render();

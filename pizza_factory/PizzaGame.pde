@@ -11,6 +11,8 @@ class PizzaGame
   public final TextUtils textUtils = new TextUtils();
   public final GameUtils gameUtils = new GameUtils(this);
 
+  public final color backgroundColour = color(255, 255, 255, 255);
+
 
   public PizzaGame(Boolean debug)
   {
