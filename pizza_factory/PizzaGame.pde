@@ -32,6 +32,9 @@ class PizzaGame
     // Set the title at the top of the sketch window
     surface.setTitle(String.format("%s by %s", this.name, this.credits));
 
+    // Add background object
+    this.activeRenderObjects.add(new Background(this));
+
     // Add window debug info if we are in debug mode
     if (this.enableDebug)
       this.activeRenderObjects.add(new DebugOverlay(this));
