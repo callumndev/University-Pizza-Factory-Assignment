@@ -7,6 +7,7 @@ class PizzaGame
   private Long processStartedAt = System.currentTimeMillis();
 
   private final ArrayList<RenderObjectImpl> activeRenderObjects = new ArrayList<>(); // List of all the objects that should be actively sent to the render loop
+  private final RenderObjectImpl background = new Background(this);
 
   public final TextUtils textUtils = new TextUtils();
   public final GameUtils gameUtils = new GameUtils(this);
@@ -33,7 +34,7 @@ class PizzaGame
     surface.setTitle(String.format("%s by %s", this.name, this.credits));
 
     // Add background object
-    this.activeRenderObjects.add(new Background(this));
+    this.activeRenderObjects.add(background);
 
     // Add window debug info if we are in debug mode
     if (this.enableDebug)

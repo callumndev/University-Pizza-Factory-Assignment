@@ -49,3 +49,11 @@ mark guide:
 [-] Use of an Interface or abstract class
 [-] Complex product building, e.g. Rotation of Components necessary (arrow keys)
 [-] Refactored, maintainable code
+
+
+
+ingredients:
+
+dough
+tommy sauce, bbq sauce 
+cheese (yellow/cream), chicken (beiege/yellow/cream), onion (red/purple), mushroom (grey/brown), ham (red/pink), pineapple (yellow)
