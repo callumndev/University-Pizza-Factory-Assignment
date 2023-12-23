@@ -74,7 +74,7 @@ class DebugOverlay extends RenderObject
       Integer padding = 5;
       Float x = width - debugTextWidth; // Width minus the text width will place it at the very far right of the window
       Float y = this.textUtils.getTextHeight() * debugInfoIndex; // Very top of window relative to the text height + accounting for above (debugInfoIndex) rows of other text
-      this.textUtils.drawTextWithOutline(debugText, x - padding, y - padding, this.debugTextOutlineColour);
+      this.textUtils.drawTextWithOutline(debugText, x - padding, y + padding, this.debugTextOutlineColour);
 
       // Increment debugInfoIndex
       debugInfoIndex++;
