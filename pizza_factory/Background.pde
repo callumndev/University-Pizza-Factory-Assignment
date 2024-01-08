@@ -9,30 +9,13 @@ public enum BeltSpeed {
 
 class Background extends RenderObject
 {
-  private PImage baseBackgroundImage;
   private Integer backgroundX = 0;
-
-  private PImage conveyorBeltImage;
   private BeltSpeed beltSpeed = BeltSpeed.SLOW;
 
 
   public Background(PizzaGame game)
   {
     super(game);
-
-    this.loadImages(); // Load all images
-  }
-
-  // Loads all images from their files and resizes them to the correct size
-  private void loadImages()
-  {
-    // Base background image
-    baseBackgroundImage = loadImage("images/basebackground.png");
-    baseBackgroundImage.resize(1200, 850); // Resize to fill the whole canvas
-
-    // Conveyor belt image
-    conveyorBeltImage = loadImage("images/conveyorbelt.png");
-    conveyorBeltImage.resize(1200, 250); // Resize to fill bottom 250px of the canvas
   }
 
 
@@ -88,6 +71,9 @@ class Background extends RenderObject
     // Render base background
     this.renderBaseBackground();
 
+    // Render ingredient images in background trays
+    this.renderIngredientsInTrays();
+
     // Render conveyor belt
     this.renderConveyorBelt();
   }
@@ -97,26 +83,44 @@ class Background extends RenderObject
   private void renderBaseBackground()
   {
     // Render base background image
-    image(baseBackgroundImage, 0, 0);
+    image(this.assets.gameBackground, 0, 0);
   }
 
   // Renders the moving conveyor belt. Two of the same images giving the endless belt effect
   private void renderConveyorBelt()
   {
-    int yPos = height - conveyorBeltImage.height; // Canvas height minus image height will place the image at the very bottom of the canvas
+    int yPos = height - this.assets.gameConveyorBelt.height; // Canvas height minus image height will place the image at the very bottom of the canvas
 
     // We draw the converyor belt image twice, one behind the other, same Y position
-    image(conveyorBeltImage, backgroundX, yPos);
-    image(conveyorBeltImage, backgroundX + conveyorBeltImage.width, yPos);
+    image(this.assets.gameConveyorBelt, backgroundX, yPos);
+    image(this.assets.gameConveyorBelt, backgroundX + this.assets.gameConveyorBelt.width, yPos);
 
     // Move X left using the current belt speed value
     backgroundX = backgroundX - this.getBeltSpeedValue();
 
     // If the current X position is at the end of the first image (off canvas)
-    if (backgroundX == -conveyorBeltImage.width)
+    if (backgroundX == -this.assets.gameConveyorBelt.width)
     {
       // Reset position back to 0 to give infinite loop illusion
       backgroundX = 0;
     }
+  }
+
+  // The base background image has trays for indgredits, here we render those ingredients in those trays
+  private void renderIngredientsInTrays()
+  {
+    // Dough
+    image(this.assets.ingredientDough, 10, 525);
+
+
+    // Push transformations
+    pushMatrix();
+
+    translate(90, 500); // Displace image
+    rotate(radians(55)); // Rotate by 55 degrees
+    image(this.assets.ingredientDough, 0, 0); // 0, 0 because translate displaces the object
+
+    // Pop/remove transformations
+    popMatrix();
   }
 }

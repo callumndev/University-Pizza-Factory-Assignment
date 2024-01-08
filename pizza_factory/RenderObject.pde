@@ -1,12 +1,14 @@
 class RenderObject implements RenderObjectImpl
 {
   protected PizzaGame game;
+  protected Assets assets;
   protected TextUtils textUtils;
   protected GameUtils gameUtils;
 
   public RenderObject(PizzaGame game)
   {
     this.game = game;
+    this.assets = game.assets;
     this.textUtils = game.textUtils;
     this.gameUtils = game.gameUtils;
   }

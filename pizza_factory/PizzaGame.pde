@@ -6,7 +6,10 @@ class PizzaGame
   private Boolean enableDebug = false;
   private Long processStartedAt = System.currentTimeMillis();
 
+  private final Assets assets = new Assets();
+
   private final ArrayList<RenderObjectImpl> activeRenderObjects = new ArrayList<>(); // List of all the objects that should be actively sent to the render loop
+  private final RenderObjectImpl ingredients = new IngredientHandling(this);
   private final RenderObjectImpl background = new Background(this);
 
   public final TextUtils textUtils = new TextUtils();
@@ -35,6 +38,9 @@ class PizzaGame
 
     // Add background object
     this.activeRenderObjects.add(background);
+
+    // Handles everything for dragging, colliding etc, for ingredients
+    this.activeRenderObjects.add(ingredients);
 
     // Add window debug info if we are in debug mode
     if (this.enableDebug)
