@@ -71,9 +71,6 @@ class Background extends RenderObject
     // Render base background
     this.renderBaseBackground();
 
-    // Render ingredient images in background trays
-    this.renderIngredientsInTrays();
-
     // Render conveyor belt
     this.renderConveyorBelt();
   }
@@ -104,23 +101,5 @@ class Background extends RenderObject
       // Reset position back to 0 to give infinite loop illusion
       backgroundX = 0;
     }
-  }
-
-  // The base background image has trays for indgredits, here we render those ingredients in those trays
-  private void renderIngredientsInTrays()
-  {
-    // Dough
-    image(this.assets.ingredientDough, 10, 525);
-
-
-    // Push transformations
-    pushMatrix();
-
-    translate(90, 500); // Displace image
-    rotate(radians(55)); // Rotate by 55 degrees
-    image(this.assets.ingredientDough, 0, 0); // 0, 0 because translate displaces the object
-
-    // Pop/remove transformations
-    popMatrix();
   }
 }
