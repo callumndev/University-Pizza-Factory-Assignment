@@ -7,13 +7,12 @@ class PizzaGame
   private Long processStartedAt = System.currentTimeMillis();
 
   private final Assets assets = new Assets();
+  public final TextUtils textUtils = new TextUtils();
+  public final GameUtils gameUtils = new GameUtils(this);
 
   private final ArrayList<RenderObjectImpl> activeRenderObjects = new ArrayList<>(); // List of all the objects that should be actively sent to the render loop
   private final RenderObjectImpl ingredients = new IngredientHandling(this);
   private final RenderObjectImpl background = new Background(this);
-
-  public final TextUtils textUtils = new TextUtils();
-  public final GameUtils gameUtils = new GameUtils(this);
 
   public final color backgroundColour = color(255, 255, 255, 255);
 

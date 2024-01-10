@@ -24,12 +24,21 @@ class IngredientHandling extends RenderObject
 {
   private Boolean prevMouseDown = false;
   private Boolean isDragging = false;
+  private Ingredient activeIngredient = null;
+  private PImage activeIngredientImage = null;
+
 
   HashMap<Ingredient, Map.Entry<IngredientBoundType, ArrayList<Float>>> ingredientPickupBounds = new HashMap<>() {
     {
       put(Ingredient.DOUGH, new SimpleEntry(IngredientBoundType.RECTANGLE, new ArrayList<Float>(Arrays.asList(7.0f, 499.0f, 117.0f, 79.0f))));
       put(Ingredient.TOMATO_SAUCE, new SimpleEntry(IngredientBoundType.ELLIPSE, new ArrayList<Float>(Arrays.asList(152.0f, 537.0f, 38.0f, 38.0f))));
       put(Ingredient.BBQ_SAUCE, new SimpleEntry(IngredientBoundType.ELLIPSE, new ArrayList<Float>(Arrays.asList(191.0f, 560.0f, 38.0f, 38.0f))));
+      put(Ingredient.CHEESE, new SimpleEntry(IngredientBoundType.RECTANGLE, new ArrayList<Float>(Arrays.asList(232.0f, 500.0f, 155.0f, 79.0f))));
+      put(Ingredient.CHICKEN, new SimpleEntry(IngredientBoundType.RECTANGLE, new ArrayList<Float>(Arrays.asList(393.0f, 500.0f, 155.0f, 79.0f))));
+      put(Ingredient.ONION, new SimpleEntry(IngredientBoundType.RECTANGLE, new ArrayList<Float>(Arrays.asList(554.0f, 500.0f, 155.0f, 79.0f))));
+      put(Ingredient.MUSHROOM, new SimpleEntry(IngredientBoundType.RECTANGLE, new ArrayList<Float>(Arrays.asList(715.0f, 500.0f, 155.0f, 79.0f))));
+      put(Ingredient.HAM, new SimpleEntry(IngredientBoundType.RECTANGLE, new ArrayList<Float>(Arrays.asList(876.0f, 500.0f, 155.0f, 79.0f))));
+      put(Ingredient.PINEAPPLE, new SimpleEntry(IngredientBoundType.RECTANGLE, new ArrayList<Float>(Arrays.asList(1037.0f, 500.0f, 155.0f, 79.0f))));
     }
   };
 
@@ -47,12 +56,24 @@ class IngredientHandling extends RenderObject
 
   public void render()
   {
+    // If the games debug mode is enabled
+    if (this.game.enableDebug)
+    {
+      // Draw the bounds that you can click in to pickup an ingredient
+      this.drawIngredientPickupBounds();
+    }
+
 
     // LEFT mouse was just clicked
     if (mousePressed && !this.prevMouseDown && mouseButton == LEFT)
     {
       this.prevMouseDown = true;
-      this.onIngredientClick();
+
+      Ingredient clickedIngredient = this.getClickedIngredient(Float.valueOf(mouseX), Float.valueOf(mouseY));
+      if (clickedIngredient != null)
+      {
+        this.onIngredientClick(clickedIngredient);
+      }
     }
     // Mouse is currently not pressed, but was before
     else if (!mousePressed && this.prevMouseDown)
@@ -61,31 +82,128 @@ class IngredientHandling extends RenderObject
       this.onIngredientRelease();
     }
 
-    if (this.game.enableDebug)
-    {
-      // Draw the bounds that you can click in to pickup an ingredient
-      this.drawIngredientPickupBounds();
-    }
 
-
-    if (this.isDragging)
+    // If we are dragging a valid ingredient
+    if (this.isDragging && this.activeIngredient != null)
     {
-      ellipse(mouseX, mouseY, 10, 10);
+      image(
+        // Current active ingredient
+        this.activeIngredientImage,
+        // Centered under mouse pos
+        mouseX - this.activeIngredientImage.width / 2,
+        mouseY - this.activeIngredientImage.height / 2
+        );
     }
   }
 
 
-  private void onIngredientClick()
+  private void onIngredientClick(Ingredient clickedIngredient)
   {
+    // Set image for active ingredient if valid
+    PImage pickedupIngredientImage = this.getPickupIngredientImage(clickedIngredient);
+    if (pickedupIngredientImage != null)
+    {
+      this.activeIngredient = clickedIngredient;
+      this.activeIngredientImage = pickedupIngredientImage;
+    }
+
+    // Set cursor to hand
+    cursor(HAND);
+
+    // Display as dragging
     this.isDragging = true;
   }
 
   private void onIngredientRelease()
   {
+    // Disable dragging of current ingredient
     this.isDragging = false;
+
+    // Reset active ingredient
+    this.activeIngredient = null;
+    this.activeIngredientImage = null;
+
+    // Reset cursor
+    cursor(ARROW);
   }
 
 
+  // If the user clicks inside of the bounds of an ingredient pickup area then this returns which ingredient, else returns null for no ingredient clicked
+  private Ingredient getClickedIngredient(Float pointX, Float pointY)
+  {
+    for (Map.Entry<Ingredient, Map.Entry<IngredientBoundType, ArrayList<Float>>> ingredientPickupBoundsEntry : ingredientPickupBounds.entrySet()) {
+      Ingredient ingredient = ingredientPickupBoundsEntry.getKey();
+
+      // Unpack bounds info entry
+      Map.Entry<IngredientBoundType, ArrayList<Float>> ingredientPickupBoundsInfoEntry = ingredientPickupBoundsEntry.getValue();
+      IngredientBoundType boundsType = ingredientPickupBoundsInfoEntry.getKey(); // circle, square, rectangle, etc
+      ArrayList<Float> boundsMetadata = ingredientPickupBoundsInfoEntry.getValue(); // x, y, width, height etc of the bounds area
+
+      // Unpack x, y, width, height
+      Float x = boundsMetadata.get(0);
+      Float y = boundsMetadata.get(1);
+      Float boundsWidth = boundsMetadata.get(2);
+      Float boundsHeight = boundsMetadata.get(3);
+
+      // Check if mouse pos is inside of the ingredient pickup bounds, also account for bounds shape
+      if (boundsType == IngredientBoundType.RECTANGLE)
+      {
+        Boolean isInsideRectBounds = this.gameUtils.isPointInsideRect(pointX, pointY, x, y, boundsWidth, boundsHeight);
+        if (isInsideRectBounds)
+        {
+          return ingredient;
+        }
+      } else if (boundsType == IngredientBoundType.ELLIPSE)
+      {
+        Boolean isInsideEllipseBounds = this.gameUtils.isPointInsideEllipse(pointX, pointY, x, y, boundsWidth, boundsHeight);
+        if (isInsideEllipseBounds)
+        {
+          return ingredient;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  // Gets the image for when the coresponding ingredient is picked up
+  private PImage getPickupIngredientImage(Ingredient ingredient)
+  {
+    switch (ingredient)
+    {
+    case DOUGH:
+      return this.assets.ingredientDough;
+
+      //case TOMATO_SAUCE:
+      //return this.assets.ingredientTomatoSauce;
+
+      //case BBQ_SAUCE:
+      //  return this.assets.ingredientBBQSauce;
+
+    case CHEESE:
+      return this.assets.ingredientCheese;
+
+    case CHICKEN:
+      return this.assets.ingredientChicken;
+
+    case ONION:
+      return this.assets.ingredientOnion;
+
+    case MUSHROOM:
+      return this.assets.ingredientMushroom;
+
+    case HAM:
+      return this.assets.ingredientHam;
+
+    case PINEAPPLE:
+      return this.assets.ingredientPineapple;
+
+    default:
+      return null;
+    }
+  }
+
+  // Debug - Draws the boundaries which users can click in to pick ingredients up, usually invisible
   private void drawIngredientPickupBounds()
   {
     for (Map.Entry<Ingredient, Map.Entry<IngredientBoundType, ArrayList<Float>>> ingredientPickupBoundsEntry : ingredientPickupBounds.entrySet()) {
