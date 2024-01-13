@@ -15,21 +15,21 @@ mark guide:
 40%:
 [-] Development of your solution is fully explained via a written implementation report (<500 words) which must include screen shots of section of your code at different stages of development to show your complete understanding of your solution.
 [-] Product (to be assembled) moves across the screen (right to left)
-[-] Minimum 2 classes (Component, Product)
-[-] At least one Component object that can be clicked on or dragged (by the mouse) to the Product
+[X] Minimum 2 classes (Component, Product)
+[X] At least one Component object that can be clicked on or dragged (by the mouse) to the Product
 [-] Simple working game (comment out any code that causes errors) in Processing.
 [-] Something clearly happens when the Component collides with the Product (e.g. Component removed from game, Product is updated) 
 
 40-50%:
-[-] At least 3 Component objects on screen (can be of the same class type)
+[X] At least 3 Component objects on screen (can be of the same class type)
 [-] Working Boolean Collision function method(s) : for the Product with the Component
 [-] Game ends when an incomplete Product (<3 components added) gets to edge of screen
-[-] Component objects use PImage
+[X] Component objects use PImage
 
 50-60%:
-[-] PImage for Components and Product
+[X] PImage for Components and Product
 [-] Splash or game over screen (draw does different things at different times)
-[-] An ArrayList (or array) of Component objects
+[X] An ArrayList (or array) of Component objects
 [-] New Components and Products appear as game progresses
 [-] Product and Component objects removed from memory at the appropriate time (set to null, or removed from array/arrayList)
 [-] A 2nd type (class) of Component object, where Product requires different types of components to be completed. 
