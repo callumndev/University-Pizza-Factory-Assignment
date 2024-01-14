@@ -12,7 +12,8 @@ class PizzaGame
 
   private final ArrayList<RenderObjectImpl> activeRenderObjects = new ArrayList<>(); // List of all the objects that should be actively sent to the render loop
   private final RenderObjectImpl ingredients = new IngredientHandling(this);
-  private final RenderObjectImpl background = new Background(this);
+  private final Background background = new Background(this);
+  private final RenderObjectImpl pizza = new Pizza(this);
 
   public final color backgroundColour = color(255, 255, 255, 255);
 
@@ -37,6 +38,9 @@ class PizzaGame
 
     // Add background object
     this.activeRenderObjects.add(background);
+
+    // Add pizza object
+    this.activeRenderObjects.add(pizza);
 
     // Handles everything for dragging, colliding etc, for ingredients
     this.activeRenderObjects.add(ingredients);

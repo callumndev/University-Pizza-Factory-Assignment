@@ -15,6 +15,9 @@ public class Assets
   public final PImage ingredientHam = loadImage("images/ingredients/ham.png");
   public final PImage ingredientPineapple = loadImage("images/ingredients/pineapple.png");
 
+  // Toppings
+  public final PImage toppingDoughRolled = loadImage("images/ingredients/toppings/dough_rolled.png");
+
 
   // Resize images in constructor
   public Assets()
@@ -33,5 +36,8 @@ public class Assets
     ingredientMushroom.resize(15, 24);
     ingredientHam.resize(46, 31);
     ingredientPineapple.resize(11, 21);
+
+    // Toppings
+    toppingDoughRolled.resize(53, 43);
   }
 }
