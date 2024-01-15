@@ -11,7 +11,9 @@ public enum Ingredient {
     ONION,
     MUSHROOM,
     HAM,
-    PINEAPPLE;
+    PINEAPPLE,
+
+    PIZZA; // Only used to visualising pizza bounds in debug mode - can't pick things up from these bounds
 }
 
 public enum IngredientBoundType {
@@ -59,8 +61,14 @@ class IngredientHandling extends RenderObject
     // If the games debug mode is enabled
     if (this.game.enableDebug)
     {
+      // Add current pizza bounds
+      ingredientPickupBounds.put(Ingredient.PIZZA, Map.entry(IngredientBoundType.ELLIPSE, new ArrayList<Float>(Arrays.asList((float)this.game.pizza.xPos, (float)this.game.pizza.yPos, (float)this.assets.toppingDoughRolled.width, (float)this.assets.toppingDoughRolled.height))));
+
       // Draw the bounds that you can click in to pickup an ingredient
       this.drawIngredientPickupBounds();
+
+      // Remove to re-add next frame
+      ingredientPickupBounds.remove(Ingredient.PIZZA);
     }
 
 
@@ -93,6 +101,26 @@ class IngredientHandling extends RenderObject
         mouseX - this.activeIngredientImage.width / 2,
         mouseY - this.activeIngredientImage.height / 2
         );
+
+      // Check if the mouse position is inside of the pizza bounds
+      Boolean isCollidingWithPizza = this.gameUtils.isPointInsideEllipse(
+        // Current mouse position
+        (float)mouseX, (float)mouseY,
+
+        // Pizza position + width and size
+        (float)this.game.pizza.xPos, (float)this.game.pizza.yPos,
+        (float)this.assets.toppingDoughRolled.width, (float)this.assets.toppingDoughRolled.height
+        );
+
+      // User is trying to add the active ingredient as a pizza topping
+      if (isCollidingWithPizza)
+      {
+        // Call method for adding ingredient to the pizza for this active ingredient
+        this.game.pizza.onPizzaIngredientAdd(this.activeIngredient);
+
+        // Call ingredient release to "drop" the ingredient
+        this.onIngredientRelease();
+      }
     }
   }
 

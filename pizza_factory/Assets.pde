@@ -38,6 +38,6 @@ public class Assets
     ingredientPineapple.resize(11, 21);
 
     // Toppings
-    toppingDoughRolled.resize(53, 43);
+    toppingDoughRolled.resize(53+150, 43+150);
   }
 }
