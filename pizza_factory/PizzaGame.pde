@@ -17,6 +17,7 @@ class PizzaGame
 
   public final color backgroundColour = color(255, 255, 255, 255);
   public final Integer maxMistakes = 3; // How many mistakes the user can make before the game ends
+  public Boolean gameOver = false;
 
 
   public PizzaGame(Boolean debug)
@@ -55,6 +56,37 @@ class PizzaGame
   // Game render loop
   public void render()
   {
+    // If the game is over, don't render anything else
+    if (this.gameOver)
+    {
+      // Render game over text
+      pushStyle();
+
+
+      fill(255, 0, 0);
+
+      textSize(70);
+      String gameOverText = "Game over!";
+      text(gameOverText, (width / 2) - (textWidth(gameOverText) / 2), height / 2);
+
+      textSize(40);
+      String statsText = String.format("You completed %d pizzas and made %d mistakes", this.pizza.completed, this.pizza.mistakes);
+      text(statsText, (width / 2) - (textWidth(statsText) / 2), (height / 2) + 60);
+
+      String restartText = "Click to restart";
+      text(restartText, (width / 2) - (textWidth(restartText) / 2), (height / 2) + 120);
+
+
+      popStyle();
+
+      if (mousePressed && (mouseButton == LEFT)) {
+        this.gameOver = false;
+      }
+
+      return;
+    }
+
+    // Render all active objects
     for (RenderObjectImpl obj : this.activeRenderObjects) {
       // Get should render
       Boolean shouldRender = obj.getShouldRender();

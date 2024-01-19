@@ -9,8 +9,8 @@ class Pizza extends RenderObject
   private ArrayList<Ingredient> toppings = new ArrayList<>();
 
   private Boolean locked = false;
-  private Integer mistakes = 0;
-  private Integer completed = 0;
+  public Integer mistakes = 0;
+  public Integer completed = 0;
 
 
   public Pizza(PizzaGame game)
@@ -233,14 +233,6 @@ class Pizza extends RenderObject
       this.mistakes++;
     }
 
-    // If too many mistakes happened
-    if (this.mistakes >= this.game.maxMistakes)
-    {
-      // this.game.gameOver();
-      println("game over");
-      return;
-    }
-
     // Clear toppings
     this.requiredToppings.clear();
     this.toppings.clear();
@@ -250,6 +242,13 @@ class Pizza extends RenderObject
 
     // Reset position to the right
     this.resetPosition();
+
+    // If too many mistakes happened
+    if (this.mistakes >= this.game.maxMistakes)
+    {
+      this.game.gameOver = true;
+      return;
+    }
   }
 
   // Called when an ingredient should be added to the pizza
