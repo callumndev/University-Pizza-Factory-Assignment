@@ -14,15 +14,15 @@ mark guide:
 
 40%:
 [-] Development of your solution is fully explained via a written implementation report (<500 words) which must include screen shots of section of your code at different stages of development to show your complete understanding of your solution.
-[-] Product (to be assembled) moves across the screen (right to left)
+[X] Product (to be assembled) moves across the screen (right to left)
 [X] Minimum 2 classes (Component, Product)
 [X] At least one Component object that can be clicked on or dragged (by the mouse) to the Product
-[-] Simple working game (comment out any code that causes errors) in Processing.
-[-] Something clearly happens when the Component collides with the Product (e.g. Component removed from game, Product is updated) 
+[X] Simple working game (comment out any code that causes errors) in Processing.
+[X] Something clearly happens when the Component collides with the Product (e.g. Component removed from game, Product is updated) 
 
 40-50%:
 [X] At least 3 Component objects on screen (can be of the same class type)
-[-] Working Boolean Collision function method(s) : for the Product with the Component
+[x] Working Boolean Collision function method(s) : for the Product with the Component
 [-] Game ends when an incomplete Product (<3 components added) gets to edge of screen
 [X] Component objects use PImage
 

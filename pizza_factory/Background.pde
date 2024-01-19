@@ -96,7 +96,7 @@ class Background extends RenderObject
     backgroundX = backgroundX - this.getBeltSpeedValue();
 
     // If the current X position is at the end of the first image (off canvas)
-    if (backgroundX == -this.assets.gameConveyorBelt.width)
+    if (backgroundX <= -this.assets.gameConveyorBelt.width)
     {
       // Reset position back to 0 to give infinite loop illusion
       backgroundX = 0;

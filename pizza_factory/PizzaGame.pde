@@ -16,6 +16,7 @@ class PizzaGame
   private final Pizza pizza = new Pizza(this);
 
   public final color backgroundColour = color(255, 255, 255, 255);
+  public final Integer maxMistakes = 3; // How many mistakes the user can make before the game ends
 
 
   public PizzaGame(Boolean debug)

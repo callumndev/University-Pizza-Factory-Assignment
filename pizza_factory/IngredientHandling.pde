@@ -3,8 +3,8 @@ import java.util.Map;
 import java.util.Arrays;
 
 public enum Ingredient {
-  TOMATO_SAUCE,
-    BBQ_SAUCE,
+  // TOMATO_SAUCE,
+  //   BBQ_SAUCE,
     CHEESE,
     CHICKEN,
     ONION,
@@ -31,8 +31,8 @@ class IngredientHandling extends RenderObject
 
   HashMap<Ingredient, Map.Entry<IngredientBoundType, ArrayList<Float>>> ingredientPickupBounds = new HashMap<>() {
     {
-      put(Ingredient.TOMATO_SAUCE, new SimpleEntry(IngredientBoundType.ELLIPSE, new ArrayList<Float>(Arrays.asList(152.0f, 537.0f, 38.0f, 38.0f))));
-      put(Ingredient.BBQ_SAUCE, new SimpleEntry(IngredientBoundType.ELLIPSE, new ArrayList<Float>(Arrays.asList(191.0f, 560.0f, 38.0f, 38.0f))));
+      //put(Ingredient.TOMATO_SAUCE, new SimpleEntry(IngredientBoundType.ELLIPSE, new ArrayList<Float>(Arrays.asList(152.0f, 537.0f, 38.0f, 38.0f))));
+      //put(Ingredient.BBQ_SAUCE, new SimpleEntry(IngredientBoundType.ELLIPSE, new ArrayList<Float>(Arrays.asList(191.0f, 560.0f, 38.0f, 38.0f))));
       put(Ingredient.CHEESE, new SimpleEntry(IngredientBoundType.RECTANGLE, new ArrayList<Float>(Arrays.asList(232.0f, 500.0f, 155.0f, 79.0f))));
       put(Ingredient.CHICKEN, new SimpleEntry(IngredientBoundType.RECTANGLE, new ArrayList<Float>(Arrays.asList(393.0f, 500.0f, 155.0f, 79.0f))));
       put(Ingredient.ONION, new SimpleEntry(IngredientBoundType.RECTANGLE, new ArrayList<Float>(Arrays.asList(554.0f, 500.0f, 155.0f, 79.0f))));
