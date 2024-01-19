@@ -226,6 +226,14 @@ class Pizza extends RenderObject
   {
     this.unlock();
 
+    // Check mistake
+    Boolean isCompleted = this.toppings.equals(this.requiredToppings);
+    if (!isCompleted)
+    {
+      this.mistakes++;
+    }
+
+    // If too many mistakes happened
     if (this.mistakes >= this.game.maxMistakes)
     {
       // this.game.gameOver();
