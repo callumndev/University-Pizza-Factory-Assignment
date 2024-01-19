@@ -11,7 +11,7 @@ class PizzaGame
   public final GameUtils gameUtils = new GameUtils(this);
 
   private final ArrayList<RenderObjectImpl> activeRenderObjects = new ArrayList<>(); // List of all the objects that should be actively sent to the render loop
-  private final RenderObjectImpl ingredients = new IngredientHandling(this);
+  private final IngredientHandling ingredients = new IngredientHandling(this);
   private final Background background = new Background(this);
   private final Pizza pizza = new Pizza(this);
 

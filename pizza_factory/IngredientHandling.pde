@@ -3,8 +3,7 @@ import java.util.Map;
 import java.util.Arrays;
 
 public enum Ingredient {
-  DOUGH,
-    TOMATO_SAUCE,
+  TOMATO_SAUCE,
     BBQ_SAUCE,
     CHEESE,
     CHICKEN,
@@ -32,7 +31,6 @@ class IngredientHandling extends RenderObject
 
   HashMap<Ingredient, Map.Entry<IngredientBoundType, ArrayList<Float>>> ingredientPickupBounds = new HashMap<>() {
     {
-      put(Ingredient.DOUGH, new SimpleEntry(IngredientBoundType.RECTANGLE, new ArrayList<Float>(Arrays.asList(7.0f, 499.0f, 117.0f, 79.0f))));
       put(Ingredient.TOMATO_SAUCE, new SimpleEntry(IngredientBoundType.ELLIPSE, new ArrayList<Float>(Arrays.asList(152.0f, 537.0f, 38.0f, 38.0f))));
       put(Ingredient.BBQ_SAUCE, new SimpleEntry(IngredientBoundType.ELLIPSE, new ArrayList<Float>(Arrays.asList(191.0f, 560.0f, 38.0f, 38.0f))));
       put(Ingredient.CHEESE, new SimpleEntry(IngredientBoundType.RECTANGLE, new ArrayList<Float>(Arrays.asList(232.0f, 500.0f, 155.0f, 79.0f))));
@@ -62,7 +60,17 @@ class IngredientHandling extends RenderObject
     if (this.game.enableDebug)
     {
       // Add current pizza bounds
-      ingredientPickupBounds.put(Ingredient.PIZZA, Map.entry(IngredientBoundType.ELLIPSE, new ArrayList<Float>(Arrays.asList((float)this.game.pizza.xPos, (float)this.game.pizza.yPos, (float)this.assets.toppingDoughRolled.width, (float)this.assets.toppingDoughRolled.height))));
+      ingredientPickupBounds.put(
+        Ingredient.PIZZA,
+        Map.entry(
+          IngredientBoundType.ELLIPSE,
+          new ArrayList<Float>(Arrays.asList(
+            (float)this.game.pizza.xPos,
+            (float)this.game.pizza.yPos,
+            (float)this.assets.doughRolled.width,
+            (float)this.assets.doughRolled.height)
+          ))
+        );
 
       // Draw the bounds that you can click in to pickup an ingredient
       this.drawIngredientPickupBounds();
@@ -109,7 +117,7 @@ class IngredientHandling extends RenderObject
 
         // Pizza position + width and size
         (float)this.game.pizza.xPos, (float)this.game.pizza.yPos,
-        (float)this.assets.toppingDoughRolled.width, (float)this.assets.toppingDoughRolled.height
+        (float)this.assets.doughRolled.width, (float)this.assets.doughRolled.height
         );
 
       // User is trying to add the active ingredient as a pizza topping
@@ -195,13 +203,10 @@ class IngredientHandling extends RenderObject
   }
 
   // Gets the image for when the coresponding ingredient is picked up
-  private PImage getPickupIngredientImage(Ingredient ingredient)
+  public PImage getPickupIngredientImage(Ingredient ingredient)
   {
     switch (ingredient)
     {
-    case DOUGH:
-      return this.assets.ingredientDough;
-
       //case TOMATO_SAUCE:
       //return this.assets.ingredientTomatoSauce;
 
