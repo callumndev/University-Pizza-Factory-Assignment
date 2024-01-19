@@ -8,7 +8,7 @@ void setup()
   size(1200, 850);
 
   // Init the game instance
-  Boolean debug = true;
+  Boolean debug = false;
   pizzaFactory = new PizzaGame(debug);
 }
 

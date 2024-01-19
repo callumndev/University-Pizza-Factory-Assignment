@@ -28,6 +28,15 @@ class Pizza extends RenderObject
 
   public void render()
   {
+    // Render required topping list
+    for (int i = 0; i < this.requiredToppings.size(); i++)
+    {
+      Ingredient toppingName = this.requiredToppings.get(i);
+      fill(0);
+      textSize(50);
+      text(toppingName.toString(), (width / 2) - (textWidth(toppingName.toString()) / 2), (height / 2) + (i * 50));
+    }
+
     // Draw dough base
     image(this.assets.doughRolled, this.xPos, this.yPos);
 
