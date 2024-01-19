@@ -34,7 +34,7 @@ class Pizza extends RenderObject
       Ingredient toppingName = this.requiredToppings.get(i);
       fill(0);
       textSize(50);
-      text(toppingName.toString(), (width / 2) - (textWidth(toppingName.toString()) / 2), (height / 2) + (i * 50));
+      text(toppingName.toString(), (width / 2) - (textWidth(toppingName.toString()) / 2), 100 + (i * 50));
     }
 
     // Draw dough base
